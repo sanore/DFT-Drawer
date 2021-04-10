@@ -51,6 +51,8 @@ function handleFile(file) {
       for (let i = 0; i < MAX; i++) {
         var pt = path.getPointAtLength(i * len / (MAX-1));
         newPathCoordinates.push(new Complex(pt.x/scale.value(), -pt.y/scale.value()));
+
+        // console.log("{ x: " + pt.x / scale.value() + ", y: " + -pt.y / scale.value() + " }")
       }
     }
 
@@ -77,13 +79,13 @@ function setup() {
   // UI
   fileInput = createFileInput(handleFile);
   fileInput.position(10, 10);
-  scale = createInput(1,"number")
+  scale = createInput(5,"number")
   scale.position(400, 10);
-  points = createInput(1000,"number")
+  points = createInput(2000,"number")
   points.position(600, 10);
-  posXInput = createSlider(0, width, width/4 * 2);
+  posXInput = createSlider(0, width, width*0.1);
   posXInput.position(800,5);
-  posYInput = createSlider(0, height, height/4 * 3);
+  posYInput = createSlider(0, height, height*0.8);
   posYInput.position(800,20);
 
   // execute dft.
@@ -121,8 +123,6 @@ function draw() {
   text("Points:", 550, 25);
 
   // draw circles
-  const x = width / 2;
-  const y = height / 2;
   path.unshift(drawCycles(posXInput.value(), posYInput.value(), fourier));
 
   // draw wave
